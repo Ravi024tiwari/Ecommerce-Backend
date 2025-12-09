@@ -20,7 +20,7 @@ dotenv.config()//here we configure that as well
 const app =express();
 //enbale the cors as well
 app.use(cors({
-    origin:"http://localhost:5173", 
+    origin:process.env.FRONTEND_URL, 
     credentials: true, // allow cookies + auth headers
   }))
 app.use(express.json())
