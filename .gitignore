@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Environment Variables (Bahut Zaroori - Security ke liye)
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Uploads (Agar local images store kar rahe ho temp ke liye)
+uploads/
+tmp/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Editor Directories
+.idea
+.vscode
+*.swp
+*.swo
+
+# Testing
+coverage/
