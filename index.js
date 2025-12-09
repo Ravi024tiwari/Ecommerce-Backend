@@ -18,6 +18,7 @@ import { AdminUserRoute } from "./Routes/AdminUserRoute.js";
 dotenv.config()//here we configure that as well
 
 const app =express();
+console.log(process.env.FRONTEND_URL)
 //enbale the cors as well
 app.use(cors({
     origin:process.env.FRONTEND_URL, 
@@ -28,7 +29,11 @@ app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())//configuring that cookie parser as well
 
 
-
+app.get("/", (req, res)=>{
+  return res.json({
+    status: "healthy"
+  })
+})
 
 
 
