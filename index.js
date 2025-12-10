@@ -16,6 +16,7 @@ import { UserProfileRoute } from "./Routes/UserProfileRoute.js";
 import { addressRoute } from "./Routes/AddressRoute.js";
 import { AdminUserRoute } from "./Routes/AdminUserRoute.js";
 import { getAllProducts } from "./Controllers/ProductController.js";
+import mongoose from "mongoose";
 dotenv.config()//here we configure that as well
 
 const app =express();
@@ -38,10 +39,7 @@ app.get("/", (req, res)=>{
 
 
 
-app.listen(process.env.PORT, async()=>{
-    await dbConnect();// here we conntect the data base
-    console.log(`App is listening at port ,${process.env.PORT}`)
-})
+mongoose.connect(process.env.MONGODB_URL).then(()=>console.log("success")).catch((e)=>console.error(e))
 
 app.use("/api/v1",AuthRoute)//uske baad isko call kr dega for the authVerification
 app.use("/api/v1",ProductRoute)
@@ -56,3 +54,5 @@ app.use("/api/v1",UserProfileRoute)
 app.use("/api/v1",addressRoute)
 app.use("/api/v1",AdminUserRoute)
 app.get("/get-all-products-new",getAllProducts)
+
+app.listen(8080, ()=>console.log("listening at 8080"))
