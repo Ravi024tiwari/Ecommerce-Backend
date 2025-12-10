@@ -1,6 +1,7 @@
 import User from "../Models/UserModel.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import mongoose from "mongoose";
 
 const Signup = async (req, res) => {
   try {
@@ -51,6 +52,9 @@ const Signup = async (req, res) => {
 //Now we do login for User and admin
 const LoginUser = async (req, res) => {
   try {
+    if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({ error: 'DB not ready' });
+  }
     const { email, password } = req.body;
     if (!email || !password) {
       return res.status(400).json({
