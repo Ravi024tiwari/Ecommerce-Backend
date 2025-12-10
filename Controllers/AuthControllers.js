@@ -112,7 +112,7 @@ const LoginUser = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 1 * 24 * 60 * 60 * 1000, // 5 days
     });
 
@@ -191,7 +191,7 @@ const AdminLogin = async (req, res) => {
     // 7️⃣ Store token in HTTP-only cookie
     res.cookie("token", token, {
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
@@ -218,7 +218,7 @@ const Logout =async(req,res)=>{
         const loggedInUser =await req.user; //here we get that logged in user or admin
         res.clearCookie("token",{ // here we clear that token from the backend..
             httpOnly:true,
-            sameSite:"strict",
+            sameSite:"none",
         })
     return res.status(200).json({
         success:true,
