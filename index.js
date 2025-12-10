@@ -21,7 +21,7 @@ const app =express();
 console.log(process.env.FRONTEND_URL)
 //enbale the cors as well
 app.use(cors({
-    origin:process.env.FRONTEND_URL, 
+    origin:"*", 
     credentials: true, // allow cookies + auth headers
   }))
 app.use(express.json())
