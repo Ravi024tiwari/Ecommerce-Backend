@@ -13,24 +13,45 @@
 
 // export {dbConnect}
 
+// lib/mongodb.js
 import mongoose from 'mongoose';
+import dotenv from "dotenv"
+dotenv.config()
 
+const MONGODB_URI = process.env.MONGODB_URL;
 
-if (!global.mongoose) {
-  global.mongoose = { conn: null, promise: null };
+if (!MONGODB_URI) {
+  throw new Error('MONGODB_URI environment variable required');
+}
+
+let cached = global.mongoose;
+
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
 }
 
 async function dbConnect() {
-  if (global.mongoose.conn) {
-    return global.mongoose.conn;
+  if (cached.conn) {
+    return cached.conn;
   }
 
-  if (!global.mongoose.promise) {
-    global.mongoose.promise = mongoose.connect(process.env.MONGODB_URL);
-  }
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false, 
+      family: 4,              
+      maxPoolSize: 10,        
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+    };
 
-  global.mongoose.conn = await global.mongoose.promise;
-  return global.mongoose.conn;
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+      console.log('✅ Connected to MongoDB');
+      return mongoose;
+    });
+  }
+  cached.conn = await cached.promise;
+  return cached.conn;
 }
 
 export {dbConnect};
+
