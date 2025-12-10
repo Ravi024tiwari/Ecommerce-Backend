@@ -112,6 +112,7 @@ const LoginUser = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
+      secure: true,
       sameSite: "none",
       maxAge: 1 * 24 * 60 * 60 * 1000, // 5 days
     });
@@ -191,6 +192,7 @@ const AdminLogin = async (req, res) => {
     // 7️⃣ Store token in HTTP-only cookie
     res.cookie("token", token, {
       httpOnly: true,
+      secure: true,
       sameSite: "none",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
