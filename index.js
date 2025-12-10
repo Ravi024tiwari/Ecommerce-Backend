@@ -1,6 +1,5 @@
 import express from "express"
 import dotenv from "dotenv"
-import { dbConnect } from "./dbConnect/DbConnect.js";
 import cookieParser from "cookie-parser";
 import cors from "cors"
 import { AuthRoute } from "./Routes/AuthRoute.js";
@@ -15,7 +14,6 @@ import {AdminDashBoardRoute} from "./Routes/DashBoardRoute.js";
 import { UserProfileRoute } from "./Routes/UserProfileRoute.js";
 import { addressRoute } from "./Routes/AddressRoute.js";
 import { AdminUserRoute } from "./Routes/AdminUserRoute.js";
-import { getAllProducts } from "./Controllers/ProductController.js";
 import mongoose from "mongoose";
 dotenv.config()//here we configure that as well
 
@@ -23,7 +21,7 @@ const app =express();
 console.log(process.env.FRONTEND_URL)
 //enbale the cors as well
 app.use(cors({
-    origin:"*", 
+    origin:process.env.FRONTEND_URL, 
     credentials: true, // allow cookies + auth headers
   }))
 app.use(express.json())
@@ -53,6 +51,5 @@ app.use("/api/v1",AdminDashBoardRoute)
 app.use("/api/v1",UserProfileRoute)
 app.use("/api/v1",addressRoute)
 app.use("/api/v1",AdminUserRoute)
-app.get("/get-all-products-new",getAllProducts)
 
 app.listen(8080, ()=>console.log("listening at 8080"))
