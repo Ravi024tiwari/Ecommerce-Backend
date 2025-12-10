@@ -15,6 +15,7 @@ import {AdminDashBoardRoute} from "./Routes/DashBoardRoute.js";
 import { UserProfileRoute } from "./Routes/UserProfileRoute.js";
 import { addressRoute } from "./Routes/AddressRoute.js";
 import { AdminUserRoute } from "./Routes/AdminUserRoute.js";
+import { getAllProducts } from "./Controllers/ProductController.js";
 dotenv.config()//here we configure that as well
 
 const app =express();
@@ -54,3 +55,4 @@ app.use("/api/v1",AdminDashBoardRoute)
 app.use("/api/v1",UserProfileRoute)
 app.use("/api/v1",addressRoute)
 app.use("/api/v1",AdminUserRoute)
+app.get("/get-all-products-new",getAllProducts)
