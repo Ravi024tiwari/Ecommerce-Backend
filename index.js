@@ -2,6 +2,7 @@ import express from "express"
 import dotenv from "dotenv"
 import cookieParser from "cookie-parser";
 import cors from "cors"
+import morgan from "morgan";
 import { AuthRoute } from "./Routes/AuthRoute.js";
 import { ProductRoute } from "./Routes/ProductRoute.js";
 import { WishlistRoute } from "./Routes/WishListRoute.js";
@@ -20,10 +21,12 @@ dotenv.config()//here we configure that as well
 const app =express();
 console.log(process.env.FRONTEND_URL)
 //enbale the cors as well
+app.use(morgan("common"))
+
 app.use(cors({
-    origin:process.env.FRONTEND_URL, 
-    credentials: true, // allow cookies + auth headers
-  }))
+  origin:process.env.FRONTEND_URL,
+  credentials:true
+}))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())//configuring that cookie parser as well

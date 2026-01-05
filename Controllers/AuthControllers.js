@@ -52,6 +52,8 @@ const Signup = async (req, res) => {
 //Now we do login for User and admin
 const LoginUser = async (req, res) => {
   try {
+    console.log(req.method);
+
     if (mongoose.connection.readyState !== 1) {
     return res.status(503).json({ error: 'DB not ready' });
   }
